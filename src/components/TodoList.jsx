@@ -6,16 +6,16 @@
 import { useState } from "react";
 
 const SAMPLE_TODOS = [
-  { id: 1, text: "Buy milk" },
-  { id: 2, text: "Clean the house" },
-  { id: 3, text: "Go for a run" },
-  { id: 4, text: "Finish homework" },
-  { id: 5, text: "Call mom" },
-  { id: 6, text: "Buy groceries" },
-  { id: 7, text: "Walk the dog" },
-  { id: 8, text: "Read a book" },
-  { id: 9, text: "Do laundry" },
-  { id: 10, text: "Write code" },
+  { id: 1, text: "Buy milk", completed: false },
+  { id: 2, text: "Clean the house", completed: false },
+  { id: 3, text: "Go for a run", completed: false },
+  { id: 4, text: "Finish homework", completed: false },
+  { id: 5, text: "Call mom", completed: false },
+  { id: 6, text: "Buy groceries", completed: false },
+  { id: 7, text: "Walk the dog", completed: false },
+  { id: 8, text: "Read a book", completed: false },
+  { id: 9, text: "Do laundry", completed: false },
+  { id: 10, text: "Write code", completed: false },
 ];
 
 //제어컴포넌트에서 상태 관리할 때 쓰는 hook => useState
@@ -41,7 +41,10 @@ const TodoList = () => {
       return;
     }
 
-    setTodos([{ id: crypto.randomUUID(), text: newTodo }, ...todos]);
+    setTodos([
+      { id: crypto.randomUUID(), text: newTodo, completed: false },
+      ...todos,
+    ]);
     //투두리스트는 새로 입력한 투두가 맨 위에 오는 것이 좋으므로
     //새로 만든 newTodo를 앞에, 나머지 todo는 스프레드오퍼레이터(...)로 뒤에 펼쳐줌
 
@@ -51,6 +54,27 @@ const TodoList = () => {
   const handleInputChange = (e) => {
     console.dir(e); //메서드를 콘솔에 출력해주는 명령어
     setNewTodo(e.target.value);
+  };
+
+  const toggleCompleted = (id) => {
+    const updateTodos = todos.map((todo) => {
+      if (todo.id === id) {
+        //현재 항목의 id가 토글한(수정하려는) todo의 id가 같다면
+        //수정된 값
+        const newTodo = {
+          // id: todo.id, //id는 그대로
+          // text: todo.text, //text는 그대로
+          ...todo, //위의 두 줄을 스프레드오퍼레이터를 사용해 한줄로
+          completed: !todo.completed, //completed상태를 반전
+          //completed: true <= 이렇게 입력하면 버튼을 한번 클릭했을 때 true로 바뀌는데, 두번클릭했을 때 다시 false로 바뀌지 않음
+        };
+        return newTodo;
+      } else {
+        //아니라면 기존 값
+        return todo;
+      }
+    });
+    setTodos(updateTodos);
   };
 
   return (
@@ -69,7 +93,12 @@ const TodoList = () => {
       </form>
       <ul>
         {todos.map((todo) => (
-          <li key={todo.text}>{todo.text}</li>
+          <li key={todo.id}>
+            <p>
+              {todo.text} - {String(todo.completed)}
+            </p>
+            <button onClick={() => toggleCompleted(todo.id)}>완료</button>
+          </li>
         ))}
       </ul>
     </div>
