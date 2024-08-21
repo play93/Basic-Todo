@@ -77,6 +77,27 @@ const TodoList = () => {
     setTodos(updateTodos);
   };
 
+  const handleDelete = (id) => {
+    const deleteUpdateTodos = todos.filter((todo) => {
+      // Note : 리택토링 이전 코드
+      // if (todo.id === id) {
+      //   //현재 항목의 id가 토글한(수정하려는) todo의 id가 같다면
+      //   return false;
+      // } else {
+      //   return true;
+      // }
+
+      // Note : 리택토링 이전 코드3 (error! 앞에 리턴을 붙이지 않아서 모든 항목이 삭제됨)
+      // todo.id === id ? false : true;
+
+      // Note : 리택토링 이전 코드4
+      // return todo.id === id ? false : true;
+
+      return todo.id !== id;
+    });
+    setTodos(deleteUpdateTodos);
+  };
+
   return (
     <div>
       <form action="">
@@ -98,6 +119,7 @@ const TodoList = () => {
               {todo.text} - {String(todo.completed)}
             </p>
             <button onClick={() => toggleCompleted(todo.id)}>완료</button>
+            <button onClick={() => handleDelete(todo.id)}>삭제</button>
           </li>
         ))}
       </ul>
