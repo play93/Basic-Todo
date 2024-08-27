@@ -3,6 +3,7 @@ import { SAMPLE_TODOS } from "../../constants/sample-todos";
 import TodoForm from "./TodoForm";
 import TodoList from "./TodoList";
 import TodoDashboard from "./TodoDashboard";
+import styled from "styled-components";
 //팁) 변수 바꿀 때 f2누르면 뜨는 입력창에서 변수명을 수정하면 연결되어있는 것도 한꺼번에 바뀜!!
 //팁) 서버 끊을 땐 ctrl + c
 //팁) id 생성시 crypto.randomUUID() 사용 => 암호화된 고유한 ID생성
@@ -59,15 +60,16 @@ const TodoContainer = () => {
   };
 
   return (
-    <div>
-      <TodoDashboard />
+    <TodoContainerWrapper>
+      <TodoDashboard all={todos.length} completed={6} pending={1} />
       <TodoForm addTodos={addTodos} />
+
       <TodoList
         todos={todos}
         toggleCompleted={toggleCompleted}
         handleDelete={handleDelete}
       />
-    </div>
+    </TodoContainerWrapper>
   );
 };
 //제어컴포넌트에서 상태 관리할 때 쓰는 hook => useState
@@ -82,3 +84,9 @@ const TodoContainer = () => {
 //그리고 이 key값으로 요소를 찾아 삭제하거나, 수정해주므로 맵에선 항상 key가 있어야 하며, 하나뿐인 유니크한 값이어야 함
 
 export default TodoContainer;
+
+const TodoContainerWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+`;

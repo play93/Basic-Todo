@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { ClipboardCheck, Ellipsis, Monitor, Video } from "lucide-react";
 
-const TodoDashboard = () => {
+const TodoDashboard = ({ all = 0, completed = 0, pending = 0 }) => {
   return (
     <DashboardSection>
       <DashboardHeader>
@@ -15,7 +15,7 @@ const TodoDashboard = () => {
             <Ellipsis color="rgba(255,255,255,0.4)" />
           </div>
           <p>
-            16 <br />
+            {all} <br />
             New Task
           </p>
         </DashboardCard>
@@ -25,7 +25,7 @@ const TodoDashboard = () => {
             <Ellipsis color="rgba(255,255,255,0.4)" />
           </div>
           <p>
-            3 <br />
+            {completed} <br />
             Completed
           </p>
         </DashboardCard>
@@ -35,7 +35,7 @@ const TodoDashboard = () => {
             <Ellipsis color="rgba(255,255,255,0.4)" />
           </div>
           <p>
-            13 <br />
+            {pending} <br />
             Pending
           </p>
         </DashboardCard>
@@ -66,7 +66,7 @@ const DashboardCardList = styled.article`
 `;
 
 const DashboardCard = styled.div`
-  background-color: ${(props) => props.color};
+  background-color: ${({ color }) => color};
   padding: 1rem;
   border-radius: 1rem;
   height: calc(640px / 4);
@@ -77,12 +77,12 @@ const DashboardCard = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  flex: ${(props) => props.flex};
+  flex: ${({ flex }) => flex};
 
   div {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    color: ${(props) => props.color};
+    color: ${({ color }) => color};
   }
 `;
