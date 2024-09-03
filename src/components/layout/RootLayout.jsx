@@ -1,9 +1,12 @@
 import styled from "styled-components";
+import { Outlet } from "react-router-dom";
 
-const RootLayout = ({ children }) => {
+const RootLayout = () => {
   return (
     <RootLayoutMain className="main-center">
-      <RootLayoutContents>{children}</RootLayoutContents>
+      <RootLayoutContents>
+        <Outlet />
+      </RootLayoutContents>
     </RootLayoutMain>
   );
 };
