@@ -17,7 +17,7 @@ const TodoDashboard = () => {
       </DashboardHeader>
 
       <DashboardCardList>
-        <DashboardCard flex="2" color="#e7582b" to={"/"} $highlight={!filter}>
+        <DashboardCard $flex="2" $color="#e7582b" to={"/"} $highlight={!filter}>
           <div>
             <ClipboardCheck color="white" />
             <Ellipsis color="rgba(255,255,255,0.4)" />
@@ -28,8 +28,8 @@ const TodoDashboard = () => {
           </p>
         </DashboardCard>
         <DashboardCard
-          flex="1"
-          color="#582be7"
+          $flex="1"
+          $color="#582be7"
           to={"?filter=completed"}
           $highlight={filter === "completed"}
         >
@@ -43,8 +43,8 @@ const TodoDashboard = () => {
           </p>
         </DashboardCard>
         <DashboardCard
-          flex="1"
-          color="#242424"
+          $flex="1"
+          $color="#242424"
           to={"?filter=pending"}
           $highlight={filter === "pending"}
         >
@@ -103,6 +103,6 @@ const DashboardCard = styled(Link)`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    color: ${({ color }) => color};
+    color: ${({ $color }) => $color};
   }
 `;

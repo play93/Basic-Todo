@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { Outlet } from "react-router-dom";
 
 const RootLayout = () => {
+  console.log("dsfd");
   return (
     <RootLayoutMain className="main-center">
       <RootLayoutContents>
