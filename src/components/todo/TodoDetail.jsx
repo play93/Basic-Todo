@@ -5,7 +5,7 @@ import TodoItem from "./TodoItem";
 
 const TodoDetail = () => {
   const { todos } = useContext(TodoContext);
-  const { id } = useParams;
+  const { id } = useParams();
 
   const todo = todos.find((todo) => {
     return todo.id === id;

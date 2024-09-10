@@ -4,7 +4,7 @@ import { Outlet } from "react-router-dom";
 const RootLayout = () => {
   console.log("dsfd");
   return (
-    <RootLayoutMain className="main-center">
+    <RootLayoutMain>
       <RootLayoutContents>
         <Outlet />
       </RootLayoutContents>
