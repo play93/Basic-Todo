@@ -1,10 +1,8 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import { TaskItemActionButton } from "./TodoItem";
-import { TodoContext } from "../../context/TodoContext";
 
 const TodoForm = () => {
-  const { addTodos } = useContext(TodoContext);
   const [newTodo, setNewTodo] = useState("");
 
   const handleInputChange = (e) => {
@@ -30,7 +28,7 @@ const TodoForm = () => {
     //   ...todos,
     // ]);
 
-    addTodos(newTodoObj);
+    //addTodos(newTodoObj);
 
     //투두리스트는 새로 입력한 투두가 맨 위에 오는 것이 좋으므로
     //새로 만든 newTodo를 앞에, 나머지 todo는 스프레드오퍼레이터(...)로 뒤에 펼쳐줌
