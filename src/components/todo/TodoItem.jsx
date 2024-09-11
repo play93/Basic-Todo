@@ -1,7 +1,31 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { deleteTodo, toggleTodo } from "../../api/todoClient";
 
 const TodoItem = ({ todo }) => {
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
+
+  const { mutateAsync: handleDelete, isPending } = useMutation({
+    mutationFn: (id) => deleteTodo(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["todos"],
+      });
+    },
+  });
+
+  const { mutate: handleToggle } = useMutation({
+    mutationFn: ({ id, completed }) => toggleTodo(id, completed),
+    // mutationFn 에는 매개변수를 하나만 넘겨줄 수 있어서 여러개를 넘겨줄 경우, 객체로 만들어 가져와야함!
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["todos"],
+      });
+    },
+  });
+
   return (
     <TaskItem key={todo.id}>
       <TaskItemContent>
@@ -12,16 +36,21 @@ const TodoItem = ({ todo }) => {
       </TaskItemContent>
       <TaskItemActions>
         <TaskItemActionButton
-          onClick={() => toggleCompleted(todo.id, !todo.completed)}
+          onClick={() =>
+            handleToggle({ id: todo.id, completed: !todo.completed })
+          }
           color="#582be7"
         >
           {todo.completed ? "취소" : "완료"}
         </TaskItemActionButton>
         <TaskItemActionButton
-          onClick={() => handleDelete(todo.id)}
+          onClick={async () => {
+            handleDelete(todo.id);
+            navigate("/");
+          }}
           color="#f05656"
         >
-          삭제
+          {isPending ? "삭제 중" : "삭제"}
         </TaskItemActionButton>
       </TaskItemActions>
     </TaskItem>

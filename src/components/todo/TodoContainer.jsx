@@ -10,8 +10,8 @@ import styled from "styled-components";
 const TodoContainer = () => {
   return (
     <TodoContainerWrapper>
-      {/* <TodoDashboard />
-      <TodoForm /> */}
+      <TodoDashboard />
+      <TodoForm />
       <TodoList />
     </TodoContainerWrapper>
   );
