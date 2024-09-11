@@ -1,15 +1,27 @@
-import { useParams } from "react-router-dom";
 import TodoItem from "./TodoItem";
+import { useQuery } from "@tanstack/react-query";
+import { getTodoDetail } from "../../api/todoClient";
 
-const TodoDetail = () => {
-  const { id } = useParams();
-
-  const todo = todos.find((todo) => {
-    return todo.id === id;
+const TodoDetail = ({ id }) => {
+  const {
+    data: todo,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["todos", id],
+    queryFn: () => getTodoDetail(id),
   });
 
+  if (isLoading) {
+    return <section>Loading...</section>;
+  }
+
+  if (error) {
+    return <section>Error: {error.message}</section>;
+  }
+
   if (!todo) {
-    return <section>404 Not Found</section>;
+    return <section>404 Not Found Todo!</section>;
   }
 
   return (
