@@ -1,30 +1,15 @@
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { deleteTodo, toggleTodo } from "../../api/todoClient";
+import {
+  useDeleteTodoMutation,
+  useToggleTodoMutation,
+} from "../../hooks/useTodoMutation";
 
 const TodoItem = ({ todo }) => {
   const navigate = useNavigate();
-  const queryClient = useQueryClient();
 
-  const { mutateAsync: handleDelete, isPending } = useMutation({
-    mutationFn: (id) => deleteTodo(id),
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ["todos"],
-      });
-    },
-  });
-
-  const { mutate: handleToggle } = useMutation({
-    mutationFn: ({ id, completed }) => toggleTodo(id, completed),
-    // mutationFn 에는 매개변수를 하나만 넘겨줄 수 있어서 여러개를 넘겨줄 경우, 객체로 만들어 가져와야함!
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ["todos"],
-      });
-    },
-  });
+  const { mutateAsync: handleDelete, isPending } = useDeleteTodoMutation();
+  const { mutate: handleToggle } = useToggleTodoMutation();
 
   return (
     <TaskItem key={todo.id}>
