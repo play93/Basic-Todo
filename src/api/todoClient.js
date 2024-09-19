@@ -9,8 +9,18 @@ export const todoClient = axios.create({
 // todoClient를 통해 요청을 보내는 것만 남김
 
 // 모든 투두리스트 가져오기
-export const getTodos = async () => {
-  const { data } = await todoClient.get("/");
+export const getTodos = async (filter) => {
+  const searchParams = new URLSearchParams();
+
+  if (filter === "completed") {
+    searchParams.append("completed", true);
+  }
+
+  if (filter === "pending") {
+    searchParams.append("completed", false);
+  }
+
+  const { data } = await todoClient.get(`?${searchParams.toString()}`);
 
   return data;
 };
