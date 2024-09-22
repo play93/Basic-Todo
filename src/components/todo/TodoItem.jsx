@@ -1,4 +1,3 @@
-import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 import {
   useDeleteTodoMutation,
@@ -50,16 +49,3 @@ const TodoItem = ({ todo }) => {
 };
 
 export default TodoItem;
-
-export const TaskItemActionButton = styled.button`
-  color: white;
-  background-color: ${({ color }) => color};
-
-  padding: 0.4rem 1rem;
-  border-radius: 0.5rem;
-  transition: 0.3s;
-  cursor: pointer;
-  &:hover {
-    opacity: 70%;
-  }
-`;
