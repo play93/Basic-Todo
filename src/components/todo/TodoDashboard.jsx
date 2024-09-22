@@ -1,4 +1,3 @@
-import styled from "styled-components";
 import { ClipboardCheck, Ellipsis, Monitor, Video } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useTodoQuery } from "../../hooks/useTodoQuery";
@@ -12,14 +11,19 @@ const TodoDashboard = () => {
   const { data: pendingTodos } = useTodoQuery("pending");
 
   return (
-    <DashboardSection>
-      <DashboardHeader>
-        <h1>Dashboard</h1>
-      </DashboardHeader>
+    <section className="flex flex-col gap-4">
+      <div>
+        <h1 className="text-2xl font-bold ">Dashboard</h1>
+      </div>
 
-      <DashboardCardList>
-        <DashboardCard $flex="2" $color="#e7582b" to={"/"} $highlight={!filter}>
-          <div>
+      <div className="flex flex-row gap-2 w-full">
+        <Link
+          to={"/"}
+          className={`dashboard-card bg-[#d7582b] flex-grow-[2] ${
+            !filter ? "underline" : ""
+          }`}
+        >
+          <div className="flex flex-row justify-between">
             <ClipboardCheck color="white" />
             <Ellipsis color="rgba(255,255,255,0.4)" />
           </div>
@@ -27,14 +31,14 @@ const TodoDashboard = () => {
             {allTodos?.length} <br />
             All Task
           </p>
-        </DashboardCard>
-        <DashboardCard
-          $flex="1"
-          $color="#582be7"
+        </Link>
+        <Link
           to={"?filter=completed"}
-          $highlight={filter === "completed"}
+          className={`dashboard-card bg-[#582be7] flex-grow ${
+            !filter ? "underline" : ""
+          }`}
         >
-          <div>
+          <div className="flex flex-row justify-between">
             <Monitor color="white" />
             <Ellipsis color="rgba(255,255,255,0.4)" />
           </div>
@@ -42,14 +46,14 @@ const TodoDashboard = () => {
             {completedTodos?.length} <br />
             Completed
           </p>
-        </DashboardCard>
-        <DashboardCard
-          $flex="1"
-          $color="#242424"
+        </Link>
+        <Link
           to={"?filter=pending"}
-          $highlight={filter === "pending"}
+          className={`dashboard-card bg-[#242424] flex-grow ${
+            !filter ? "underline" : ""
+          }`}
         >
-          <div>
+          <div className="flex flex-row justify-between">
             <Video color="white" />
             <Ellipsis color="rgba(255,255,255,0.4)" />
           </div>
@@ -57,53 +61,10 @@ const TodoDashboard = () => {
             {pendingTodos?.length} <br />
             Pending
           </p>
-        </DashboardCard>
-      </DashboardCardList>
-    </DashboardSection>
+        </Link>
+      </div>
+    </section>
   );
 };
 
 export default TodoDashboard;
-
-const DashboardSection = styled.section`
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-`;
-
-const DashboardHeader = styled.article`
-  h1 {
-    font-size: 1.5rem;
-    font-weight: bold;
-  }
-`;
-
-const DashboardCardList = styled.article`
-  display: flex;
-  flex-direction: row;
-  gap: 8px;
-`;
-
-const DashboardCard = styled(Link)`
-  background-color: ${({ $color }) => $color};
-  padding: 1rem;
-  border-radius: 1rem;
-  height: calc(640px / 4);
-
-  color: white;
-  font-weight: bold;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  flex: ${({ $flex }) => $flex};
-
-  text-decoration: ${({ $highlight }) => ($highlight ? "underline" : "none")};
-
-  div {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    color: ${({ $color }) => $color};
-  }
-`;

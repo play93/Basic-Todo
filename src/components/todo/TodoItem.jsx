@@ -12,23 +12,30 @@ const TodoItem = ({ todo }) => {
   const { mutate: handleToggle } = useToggleTodoMutation();
 
   return (
-    <TaskItem key={todo.id}>
-      <TaskItemContent>
+    <li
+      key={todo.id}
+      className="flex flex-row justify-between item-center p-4 bg-white rounded-2xl "
+    >
+      <div>
         <p style={{ textDecoration: todo.completed ? "line-through" : "none" }}>
-          <TaskLink to={`/${todo.id}`}>{todo.text}</TaskLink>
+          <Link to={`/${todo.id}`} className="hover:underline">
+            {todo.text}
+          </Link>
           {String(todo.completed)}
         </p>
-      </TaskItemContent>
-      <TaskItemActions>
-        <TaskItemActionButton
+      </div>
+      <div className="flex flex-row gap-4 items-center justify-center">
+        <button
+          className="text-white bg-[#582be7] py-2 px-4 rounded-lg cursor-pointer hover:opacity-80"
           onClick={() =>
             handleToggle({ id: todo.id, completed: !todo.completed })
           }
           color="#582be7"
         >
           {todo.completed ? "취소" : "완료"}
-        </TaskItemActionButton>
-        <TaskItemActionButton
+        </button>
+        <button
+          className="text-white bg-[#f05656] py-2 px-4 rounded-lg cursor-pointer hover:opacity-80"
           onClick={async () => {
             handleDelete(todo.id);
             navigate("/");
@@ -36,35 +43,13 @@ const TodoItem = ({ todo }) => {
           color="#f05656"
         >
           {isPending ? "삭제 중" : "삭제"}
-        </TaskItemActionButton>
-      </TaskItemActions>
-    </TaskItem>
+        </button>
+      </div>
+    </li>
   );
 };
 
 export default TodoItem;
-
-const TaskItem = styled.li`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-
-  padding: 1rem;
-  border-radius: 1rem;
-  background-color: white;
-  box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
-`;
-
-const TaskItemContent = styled.div``;
-
-const TaskItemActions = styled.div`
-  display: flex;
-  flex-direction: row;
-  gap: 1rem;
-  align-items: center;
-  justify-content: center;
-`;
 
 export const TaskItemActionButton = styled.button`
   color: white;
@@ -76,10 +61,5 @@ export const TaskItemActionButton = styled.button`
   cursor: pointer;
   &:hover {
     opacity: 70%;
-  }
-`;
-const TaskLink = styled(Link)`
-  &:hover {
-    text-decoration: underline;
   }
 `;

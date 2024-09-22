@@ -1,6 +1,4 @@
 import { useState } from "react";
-import styled from "styled-components";
-import { TaskItemActionButton } from "./TodoItem";
 import { useCreateTodoMutation } from "../../hooks/useTodoMutation";
 
 const TodoForm = () => {
@@ -41,45 +39,24 @@ const TodoForm = () => {
   };
 
   return (
-    <TaskForm action="">
-      <TaskInput
+    <form onSubmit={handleSubmit} className="flex flex-row gap-4">
+      <input
+        className="flex-1 p-2 border-2 border-black rounded-lg outline-none text-base text-[#333] bg-white transition-colors focus:border-[#582be7]"
         type="text"
-        name=""
-        id=""
+        name="todo"
         value={newTodo}
         onChange={handleInputChange}
         placeholder="할 일을 입력해 주세요 . . ."
       />
-      <TaskButton type="submit" onClick={handleSubmit} color="#582be7">
+      <button
+        type="submit"
+        className="text-white bg-[#582be7] py-2 px-4 rounded-lg cursor-pointer hover:opacity-80"
+        onClick={handleSubmit}
+      >
         Add Todo
-      </TaskButton>
-    </TaskForm>
+      </button>
+    </form>
   );
 };
 
 export default TodoForm;
-
-const TaskForm = styled.form`
-  display: flex;
-  flex-direction: row;
-  gap: 1rem;
-`;
-
-const TaskInput = styled.input`
-  flex: 1;
-  border-bottom: 2px solid #333;
-  color: 333;
-  padding: 0.5rem;
-  transition: 0.3;
-
-  &::placeholder {
-    color: #999999;
-    font-style: italic;
-  }
-
-  &:focus {
-    border-color: #582be7;
-  }
-`;
-
-const TaskButton = styled(TaskItemActionButton)``;

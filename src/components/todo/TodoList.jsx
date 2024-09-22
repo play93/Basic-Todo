@@ -1,51 +1,33 @@
 import TodoItem from "./TodoItem";
-import styled from "styled-components";
 import { useTodoFilterdQuery } from "../../hooks/useTodoQuery";
 
 const TodoList = () => {
   const { data, isLoading, error } = useTodoFilterdQuery();
 
   if (isLoading) {
-    return <TaskSection>Loading...</TaskSection>;
+    return <section className="flex flex-col gap-4">Loading...</section>;
   }
 
   if (error) {
-    return <TaskSection>Error: {error.message}</TaskSection>;
+    return (
+      <section className="flex flex-col gap-4">Error: {error.message}</section>
+    );
   }
 
   console.log(data);
 
   return (
-    <TaskSection>
-      <TaskHeader>
-        <h1>Tasks</h1>
-      </TaskHeader>
-      <TaskList>
+    <section className="flex flex-col gap-4">
+      <div>
+        <h1 className="text-2xl font-bold">Tasks</h1>
+      </div>
+      <ul className="flex flex-col gap-4">
         {data.map((todo) => (
           <TodoItem key={todo.id} todo={todo} />
         ))}
-      </TaskList>
-    </TaskSection>
+      </ul>
+    </section>
   );
 };
 
 export default TodoList;
-
-const TaskSection = styled.section`
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-`;
-
-const TaskHeader = styled.article`
-  h1 {
-    font-size: 1.5rem;
-    font-weight: bold;
-  }
-`;
-
-const TaskList = styled.ul`
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-`;
