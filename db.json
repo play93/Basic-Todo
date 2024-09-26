@@ -1,43 +1,33 @@
 {
   "todos": [
     {
-      "id": "4",
-      "text": "Finish homework",
-      "completed": true
-    },
-    {
-      "id": "5",
-      "text": "Call mom",
-      "completed": true
-    },
-    {
-      "id": "6",
-      "text": "Buy groceries",
-      "completed": true
-    },
-    {
-      "id": "7",
-      "text": "Walk the dog",
-      "completed": true
-    },
-    {
-      "id": "9",
-      "text": "Do laundry",
-      "completed": false
-    },
-    {
       "id": "10",
       "text": "Write code",
-      "completed": false
+      "completed": true
     },
     {
       "id": "a160",
       "text": "ㅁㄴㅇㄹ",
-      "completed": false
+      "completed": true
     },
     {
       "id": "dd14",
       "text": "ㄹㄹ",
+      "completed": false
+    },
+    {
+      "id": "4d20",
+      "text": "ㅌㅋㅊㅋㄴ",
+      "completed": false
+    },
+    {
+      "id": "d74d",
+      "text": "ㄴㅋㅊ",
+      "completed": false
+    },
+    {
+      "id": "2c89",
+      "text": "엥",
       "completed": false
     }
   ]
